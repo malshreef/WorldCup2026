@@ -1,0 +1,2036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026 FIFA World Cup — Matches Calendar (Saudi Arabia Time)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Luckiest+Guy&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Fredoka', system-ui, -apple-system, sans-serif;
+    background:
+      radial-gradient(circle at 10% 10%, #fff3a0 0%, transparent 35%),
+      radial-gradient(circle at 90% 15%, #b5e8ff 0%, transparent 30%),
+      radial-gradient(circle at 85% 90%, #ffd1dc 0%, transparent 35%),
+      linear-gradient(135deg, #fffaf0 0%, #fef0f0 50%, #f0f8ff 100%);
+    min-height: 100vh;
+    color: #1a1a1a;
+    padding: 28px 20px 80px;
+    overflow-x: hidden;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; position: relative; }
+
+  .hero {
+    position: relative;
+    background: linear-gradient(135deg, #ff6b35 0%, #f7c548 50%, #4ecdc4 100%);
+    border-radius: 32px;
+    padding: 36px 40px;
+    margin-bottom: 36px;
+    box-shadow: 0 12px 32px rgba(255,107,53,0.30), inset 0 -4px 0 rgba(0,0,0,0.10);
+    overflow: hidden;
+    color: white;
+    border: 4px solid white;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 80%, rgba(255,255,255,0.18) 0%, transparent 25%),
+      radial-gradient(circle at 80% 20%, rgba(255,255,255,0.22) 0%, transparent 25%);
+    pointer-events: none;
+  }
+  .hero-grid {
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: 20px; align-items: center; position: relative; z-index: 1;
+  }
+  .hero-title-block h1 {
+    font-family: 'Luckiest Guy', cursive;
+    font-size: 56px; letter-spacing: 1px;
+    text-shadow: 4px 4px 0 rgba(0,0,0,0.18), 6px 6px 12px rgba(0,0,0,0.10);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .hero-title-block .yr { color: #fff; -webkit-text-stroke: 2px #1a1a1a; }
+  .hero-sub {
+    font-size: 17px; font-weight: 500; margin-top: 10px;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.15);
+  }
+  .hero-pills { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill {
+    background: rgba(255,255,255,0.95); color: #1a1a1a;
+    padding: 6px 14px; border-radius: 999px;
+    font-size: 13px; font-weight: 600;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.12);
+  }
+  .pill.ast { background: #ffd700; }
+  .hero-mascot { width: 200px; }
+  .hero-mascot svg { width: 100%; height: auto; filter: drop-shadow(0 8px 18px rgba(0,0,0,0.25)); animation: bounce 3s ease-in-out infinite; }
+  .hero-side { width: 130px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .hero-side svg { width: 100%; height: auto; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.20)); }
+  .hero-trophy { animation: floatY 4s ease-in-out infinite; }
+  .hero-confetti {
+    position: absolute; top: -20px; right: -20px; width: 220px; opacity: 0.55; pointer-events: none;
+  }
+
+  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+  @keyframes floatY { 0%,100%{transform:translateY(0) rotate(-3deg)} 50%{transform:translateY(-8px) rotate(3deg)} }
+  @keyframes spin { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+  @keyframes pop { 0%{transform:scale(0.8);opacity:0} 100%{transform:scale(1);opacity:1} }
+
+  .section-title {
+    font-family: 'Luckiest Guy', cursive;
+    font-size: 36px;
+    color: #042C53;
+    letter-spacing: 1px;
+    margin: 32px 0 18px;
+    display: flex; align-items: center; gap: 12px;
+    text-shadow: 3px 3px 0 rgba(255,255,255,0.7);
+  }
+  .section-title .deco {
+    width: 44px; height: 44px;
+    background: #ffd700;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    box-shadow: 0 4px 0 #b8860b, 0 6px 12px rgba(0,0,0,0.15);
+  }
+
+  .groups-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px;
+  }
+  .group-card {
+    background: var(--bg);
+    border: 4px solid var(--mid);
+    border-radius: 24px;
+    padding: 14px;
+    cursor: pointer;
+    box-shadow: 0 6px 0 var(--mid), 0 10px 20px rgba(0,0,0,0.08);
+    transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .group-card:hover {
+    transform: translateY(-6px) rotate(-1deg);
+    box-shadow: 0 12px 0 var(--mid), 0 16px 30px rgba(0,0,0,0.15);
+  }
+  .group-card::before {
+    content: '';
+    position: absolute; top: -20px; right: -20px;
+    width: 70px; height: 70px; border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+  }
+  .group-head {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+    position: relative; z-index: 1;
+  }
+  .group-letter {
+    width: 48px; height: 48px; border-radius: 16px;
+    background: var(--mid); color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Luckiest Guy', cursive;
+    font-size: 28px;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.25), inset 0 -3px 0 rgba(0,0,0,0.18);
+    transform: rotate(-5deg);
+  }
+  .group-title {
+    font-family: 'Luckiest Guy', cursive;
+    font-size: 22px; color: var(--dark);
+    letter-spacing: 1px;
+    flex: 1;
+  }
+  .group-ball { font-size: 24px; }
+  .group-card:hover .group-ball { animation: spin 1s linear infinite; }
+  .team-list { display: flex; flex-direction: column; gap: 8px; position: relative; z-index: 1; }
+  .team-chip {
+    background: white;
+    padding: 9px 12px;
+    border-radius: 18px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--dark);
+    display: flex; align-items: center; gap: 10px;
+    box-shadow: 0 2px 0 rgba(0,0,0,0.10);
+  }
+  .team-chip .flag { font-size: 22px; line-height: 1; }
+  .team-chip .tname { flex: 1; font-weight: 600; }
+
+  .filters {
+    display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 22px;
+    padding: 16px;
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(8px);
+    border-radius: 22px;
+    border: 3px dashed #ffd700;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  }
+  .fbtn {
+    background: white; color: #2C2C2A; border: 2px solid #e5e3da;
+    padding: 8px 16px; border-radius: 999px;
+    cursor: pointer;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 13px; font-weight: 600;
+    transition: all .15s ease;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.08);
+  }
+  .fbtn:hover {
+    background: var(--bg, #f7c548);
+    border-color: var(--bd, #b8860b);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 0 rgba(0,0,0,0.10);
+  }
+  .fbtn.active {
+    background: var(--bd, #042C53);
+    color: white;
+    border-color: var(--bd, #042C53);
+    box-shadow: 0 3px 0 rgba(0,0,0,0.20);
+  }
+  .fbtn[data-filter="all"].active { background: #ff6b35; border-color: #ff6b35; color: white; }
+
+  .timeline { display: flex; flex-direction: column; gap: 18px; }
+  .day-row { display: flex; gap: 16px; align-items: stretch; animation: pop .4s ease both; }
+  .day-stamp {
+    flex-shrink: 0; width: 90px;
+    background: linear-gradient(160deg, #042C53 0%, #185FA5 100%);
+    color: white; border-radius: 22px;
+    padding: 14px 8px; text-align: center;
+    display: flex; flex-direction: column; justify-content: center;
+    box-shadow: 0 6px 0 #021c36, 0 10px 18px rgba(4,44,83,0.25);
+    border: 3px solid white;
+  }
+  .day-dow { font-size: 12px; opacity: 0.85; font-weight: 600; letter-spacing: 2px; }
+  .day-num {
+    font-family: 'Luckiest Guy', cursive;
+    font-size: 40px;
+    line-height: 1.0;
+    margin: 4px 0;
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.25);
+  }
+  .day-mon { font-size: 11px; opacity: 0.85; font-weight: 600; letter-spacing: 2px; }
+  .day-matches { flex: 1; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+  .match-card {
+    background: white;
+    border: 3px solid var(--mid);
+    border-radius: 20px;
+    padding: 14px 16px;
+    display: flex; align-items: center; gap: 14px;
+    box-shadow: 0 4px 0 var(--mid), 0 8px 16px rgba(0,0,0,0.06);
+    transition: transform .15s ease;
+    position: relative;
+  }
+  .match-card:hover {
+    transform: translateX(6px) translateY(-2px);
+    box-shadow: 0 6px 0 var(--mid), 0 10px 20px rgba(0,0,0,0.10);
+  }
+  .match-card::before {
+    content: '';
+    position: absolute; left: -3px; top: -3px; bottom: -3px;
+    width: 8px; background: var(--mid);
+    border-radius: 20px 0 0 20px;
+  }
+  .match-badge {
+    background: var(--mid); color: white;
+    min-width: 52px; height: 52px;
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Luckiest Guy', cursive;
+    font-size: 20px;
+    padding: 0 10px;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.20), inset 0 -3px 0 rgba(0,0,0,0.15);
+    transform: rotate(-3deg);
+    flex-shrink: 0;
+  }
+  .match-body { flex: 1; min-width: 0; }
+  .match-teams {
+    font-size: 17px; font-weight: 600;
+    display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  }
+  .team { display: inline-flex; align-items: center; gap: 6px; }
+  .bigflag { font-size: 24px; line-height: 1; }
+  .tnm { font-weight: 600; color: #1a1a1a; }
+  .vs {
+    color: #ff6b35; font-weight: 700; font-size: 18px;
+    background: #fff3e0; padding: 2px 8px; border-radius: 8px;
+  }
+  .match-meta { font-size: 12px; color: #5F5E5A; margin-top: 4px; font-weight: 500; }
+  .match-time {
+    padding: 8px 14px; border-radius: 14px;
+    background: var(--bg); color: var(--dark);
+    border: 2px solid var(--mid);
+    box-shadow: 0 3px 0 var(--mid);
+    text-align: center; line-height: 1.1;
+    display: flex; flex-direction: column; align-items: center;
+    min-width: 82px;
+  }
+  .ast-time { font-size: 14px; font-weight: 700; white-space: nowrap; }
+  .ast-tag { font-size: 10px; font-weight: 600; opacity: 0.75; letter-spacing: 1px; margin-top: 2px; }
+
+  .hidden { display: none !important; }
+  .empty {
+    text-align: center; color: #888780; padding: 60px 20px;
+    font-size: 18px; font-weight: 600;
+  }
+  .legend {
+    font-size: 13px; color: #5F5E5A; margin-top: 12px; font-weight: 500;
+    text-align: center;
+  }
+
+  .footer {
+    text-align: center; margin-top: 50px; padding: 24px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 24px;
+    border: 3px dashed #ff6b35;
+    color: #5F5E5A;
+    font-weight: 500;
+  }
+  .footer .ball-row { font-size: 28px; letter-spacing: 8px; margin-bottom: 8px; }
+
+  @media (max-width: 900px) {
+    .groups-grid { grid-template-columns: repeat(3, 1fr); }
+    .hero-side { display: none; }
+    .hero-grid { grid-template-columns: 1fr auto; }
+    .hero-title-block h1 { font-size: 42px; }
+  }
+  @media (max-width: 600px) {
+    .groups-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero-mascot { width: 110px; }
+    .hero-title-block h1 { font-size: 30px; }
+    .day-stamp { width: 70px; }
+    .day-num { font-size: 28px; }
+    .section-title { font-size: 26px; }
+    .match-teams { font-size: 14px; }
+    .ast-time { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+
+    <div class="hero">
+      <div class="hero-confetti"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="30" cy="40" r="6" fill="#ff5577"/>
+  <rect x="60" y="20" width="10" height="10" fill="#4ecdc4" transform="rotate(25 65 25)"/>
+  <polygon points="120,30 125,40 135,40 127,46 130,56 120,50 110,56 113,46 105,40 115,40" fill="#ffd700"/>
+  <circle cx="170" cy="50" r="5" fill="#7b8cff"/>
+  <rect x="20" y="100" width="12" height="6" fill="#ff9f43" transform="rotate(-15 26 103)"/>
+  <circle cx="80" cy="120" r="4" fill="#a55eea"/>
+  <polygon points="160,110 165,118 173,118 167,123 169,131 160,126 151,131 153,123 147,118 155,118" fill="#26de81"/>
+  <rect x="100" y="160" width="10" height="10" fill="#ff5577" transform="rotate(40 105 165)"/>
+  <circle cx="190" cy="170" r="6" fill="#4ecdc4"/>
+  <circle cx="40" cy="170" r="5" fill="#ffd700"/>
+</svg></div>
+      <div class="hero-grid">
+        <div class="hero-side hero-trophy"><svg viewBox="0 0 220 240" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fff3a0"/>
+      <stop offset="50%" stop-color="#ffd700"/>
+      <stop offset="100%" stop-color="#b8860b"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="110" cy="225" rx="60" ry="8" fill="rgba(0,0,0,0.18)"/>
+  <rect x="60" y="200" width="100" height="18" rx="4" fill="#8b6914"/>
+  <rect x="78" y="180" width="64" height="24" fill="#b8860b"/>
+  <path d="M 60 50 L 60 145 Q 60 175 110 175 Q 160 175 160 145 L 160 50 Z" fill="url(#goldGrad)" stroke="#8b6914" stroke-width="3"/>
+  <path d="M 60 70 Q 25 70 25 110 Q 25 145 58 145" fill="none" stroke="#8b6914" stroke-width="7" stroke-linecap="round"/>
+  <path d="M 160 70 Q 195 70 195 110 Q 195 145 162 145" fill="none" stroke="#8b6914" stroke-width="7" stroke-linecap="round"/>
+  <ellipse cx="80" cy="80" rx="9" ry="28" fill="white" opacity="0.5"/>
+  <circle cx="90" cy="105" r="12" fill="white"/>
+  <circle cx="130" cy="105" r="12" fill="white"/>
+  <circle cx="92" cy="108" r="6" fill="#1a1a1a"/>
+  <circle cx="132" cy="108" r="6" fill="#1a1a1a"/>
+  <circle cx="94" cy="106" r="2" fill="white"/>
+  <circle cx="134" cy="106" r="2" fill="white"/>
+  <path d="M 85 130 Q 110 152 135 130" fill="none" stroke="#1a1a1a" stroke-width="3.5" stroke-linecap="round"/>
+  <ellipse cx="70" cy="125" rx="7" ry="5" fill="#ff8a9a" opacity="0.7"/>
+  <ellipse cx="150" cy="125" rx="7" ry="5" fill="#ff8a9a" opacity="0.7"/>
+  <polygon points="20,30 25,42 38,42 28,50 32,62 20,55 8,62 12,50 2,42 15,42" fill="#ffd700"/>
+  <polygon points="195,25 199,33 207,33 201,38 203,46 195,42 187,46 189,38 183,33 191,33" fill="#ffd700"/>
+</svg></div>
+        <div class="hero-mascot"><svg viewBox="0 0 220 240" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="ballShine" cx="35%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="60%" stop-color="#f5f1e8"/>
+      <stop offset="100%" stop-color="#d4cfc1"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="110" cy="220" rx="65" ry="8" fill="rgba(0,0,0,0.18)"/>
+  <circle cx="110" cy="115" r="95" fill="url(#ballShine)" stroke="#1a1a1a" stroke-width="3"/>
+  <polygon points="110,40 145,62 132,103 88,103 75,62" fill="#1a1a1a"/>
+  <polygon points="40,110 75,128 67,168 30,160 22,128" fill="#1a1a1a" opacity="0.88"/>
+  <polygon points="180,110 198,128 190,168 153,168 145,128" fill="#1a1a1a" opacity="0.88"/>
+  <polygon points="55,55 85,38 110,52 95,82 70,82" fill="#1a1a1a" opacity="0.35"/>
+  <polygon points="165,55 195,75 192,105 160,105 150,75" fill="#1a1a1a" opacity="0.35"/>
+  <ellipse cx="80" cy="60" rx="14" ry="22" fill="white" opacity="0.45"/>
+  <circle cx="82" cy="128" r="16" fill="white"/>
+  <circle cx="138" cy="128" r="16" fill="white"/>
+  <circle cx="85" cy="132" r="9" fill="#1a1a1a"/>
+  <circle cx="141" cy="132" r="9" fill="#1a1a1a"/>
+  <circle cx="88" cy="129" r="3" fill="white"/>
+  <circle cx="144" cy="129" r="3" fill="white"/>
+  <path d="M 75 158 Q 110 188 145 158" fill="none" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round"/>
+  <path d="M 92 169 Q 110 180 128 169" fill="#ff5577" stroke="none"/>
+  <ellipse cx="58" cy="150" rx="9" ry="6" fill="#ff8a9a" opacity="0.7"/>
+  <ellipse cx="162" cy="150" rx="9" ry="6" fill="#ff8a9a" opacity="0.7"/>
+</svg></div>
+        <div class="hero-title-block">
+          <h1>2026 <span class="yr">WORLD CUP</span></h1>
+          <div class="hero-sub">USA · Canada · Mexico</div>
+          <div class="hero-pills">
+            <span class="pill">📅 Jun 11 – Jul 19, 2026</span>
+            <span class="pill">⚽ 104 matches</span>
+            <span class="pill ast">🕒 All times Saudi Arabia (AST · UTC+3)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-title"><span class="deco">⚽</span>The 12 Groups</h2>
+    <div class="groups-grid">
+      <div class="group-card" data-group="A" onclick="filterByGroup('A')" style="--bg:#E6F1FB;--mid:#378ADD;--dark:#042C53">
+        <div class="group-head">
+          <div class="group-letter">A</div>
+          <div class="group-title">Group A</div>
+          <div class="group-ball">⚽</div>
+        </div>
+        <div class="team-list"><div class="team-chip"><span class="flag">🇲🇽</span><span class="tname">Mexico</span></div><div class="team-chip"><span class="flag">🇿🇦</span><span class="tname">South Africa</span></div><div class="team-chip"><span class="flag">🇰🇷</span><span class="tname">South Korea</span></div><div class="team-chip"><span class="flag">🇨🇿</span><span class="tname">Czechia</span></div></div>
+      </div>
+      <div class="group-card" data-group="B" onclick="filterByGroup('B')" style="--bg:#FAECE7;--mid:#D85A30;--dark:#4A1B0C">
+        <div class="group-head">
+          <div class="group-letter">B</div>
+          <div class="group-title">Group B</div>
+          <div class="group-ball">⚽</div>
+        </div>
+        <div class="team-list"><div class="team-chip"><span class="flag">🇨🇦</span><span class="tname">Canada</span></div><div class="team-chip"><span class="flag">🇧🇦</span><span class="tname">Bosnia and Herzegovina</span></div><div class="team-chip"><span class="flag">🇶🇦</span><span class="tname">Qatar</span></div><div class="team-chip"><span class="flag">🇨🇭</span><span class="tname">Switzerland</span></div></div>
+      </div>
+      <div class="group-card" data-group="C" onclick="filterByGroup('C')" style="--bg:#E1F5EE;--mid:#1D9E75;--dark:#04342C">
+        <div class="group-head">
+          <div class="group-letter">C</div>
+          <div class="group-title">Group C</div>
+          <div class="group-ball">⚽</div>
+        </div>
+        <div class="team-list"><div class="team-chip"><span class="flag">🇧🇷</span><span class="tname">Brazil</span></div><div class="team-chip"><span class="flag">🇲🇦</span><span class="tname">Morocco</span></div><div class="team-chip"><span class="flag">🇭🇹</span><span class="tname">Haiti</span></div><div class="team-chip"><span class="flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span><span class="tname">Scotland</span></div></div>
+      </div>
+      <div class="group-card" data-group="D" onclick="filterByGroup('D')" style="--bg:#EEEDFE;--mid:#7F77DD;--dark:#26215C">
+        <div class="group-head">
+          <div class="group-letter">D</div>
+          <div class="group-title">Group D</div>
+          <div class="group-ball">⚽</div>
+        </div>
+        <div class="team-list"><div class="team-chip"><span class="flag">🇺🇸</span><span class="tname">United States</span></div><div class="team-chip"><span class="flag">🇵🇾</span><span class="tname">Paraguay</span></div><div class="team-chip"><span class="flag">🇦🇺</span><span class="tname">Australia</span></div><div class="team-chip"><span class="flag">🇹🇷</span><span class="tname">Turkiye</span></div></div>
+      </div>
+      <div class="group-card" data-group="E" onclick="filterByGroup('E')" style="--bg:#FAEEDA;--mid:#EF9F27;--dark:#412402">
+        <div class="group-head">
+          <div class="group-letter">E</div>
+          <div class="group-title">Group E</div>
+          <div class="group-ball">⚽</div>
+        </div>
+        <div class="team-list"><div class="team-chip"><span class="flag">🇩🇪</span><span class="tname">Germany</span></div><div class="team-chip"><span class="flag">🇨🇼</span><span class="tname">Curacao</span></div><div class="team-chip"><span class="flag">🇨🇮</span><span class="tname">Ivory Coast</span></div><div class="team-chip"><span class="flag">🇪🇨</span><span class="tname">Ecuador</span></div></div>
+      </div>
+      <div class="group-card" data-group="F" onclick="filterByGroup('F')" style="--bg:#FBEAF0;--mid:#D4537E;--dark:#4B1528">
+        <div class="group-head">
+          <div class="group-letter">F</div>
+          <div class="group-title">Group F</div>
+          <div class="group-ball">⚽</div>
+        </div>
+        <div class="team-list"><div class="team-chip"><span class="flag">🇳🇱</span><span class="tname">Netherlands</span></div><div class="team-chip"><span class="flag">🇯🇵</span><span class="tname">Japan</span></div><div class="team-chip"><span class="flag">🇸🇪</span><span class="tname">Sweden</span></div><div class="team-chip"><span class="flag">🇹🇳</span><span class="tname">Tunisia</span></div></div>
+      </div>
+      <div class="group-card" data-group="G" onclick="filterByGroup('G')" style="--bg:#EAF3DE;--mid:#97C459;--dark:#173404">
+        <div class="group-head">
+          <div class="group-letter">G</div>
+          <div class="group-title">Group G</div>
+          <div class="group-ball">⚽</div>
+        </div>
+        <div class="team-list"><div class="team-chip"><span class="flag">🇧🇪</span><span class="tname">Belgium</span></div><div class="team-chip"><span class="flag">🇪🇬</span><span class="tname">Egypt</span></div><div class="team-chip"><span class="flag">🇮🇷</span><span class="tname">Iran</span></div><div class="team-chip"><span class="flag">🇳🇿</span><span class="tname">New Zealand</span></div></div>
+      </div>
+      <div class="group-card" data-group="H" onclick="filterByGroup('H')" style="--bg:#FCEBEB;--mid:#E24B4A;--dark:#501313">
+        <div class="group-head">
+          <div class="group-letter">H</div>
+          <div class="group-title">Group H</div>
+          <div class="group-ball">⚽</div>
+        </div>
+        <div class="team-list"><div class="team-chip"><span class="flag">🇪🇸</span><span class="tname">Spain</span></div><div class="team-chip"><span class="flag">🇨🇻</span><span class="tname">Cape Verde</span></div><div class="team-chip"><span class="flag">🇸🇦</span><span class="tname">Saudi Arabia</span></div><div class="team-chip"><span class="flag">🇺🇾</span><span class="tname">Uruguay</span></div></div>
+      </div>
+      <div class="group-card" data-group="I" onclick="filterByGroup('I')" style="--bg:#CFE3F7;--mid:#0C447C;--dark:#042C53">
+        <div class="group-head">
+          <div class="group-letter">I</div>
+          <div class="group-title">Group I</div>
+          <div class="group-ball">⚽</div>
+        </div>
+        <div class="team-list"><div class="team-chip"><span class="flag">🇫🇷</span><span class="tname">France</span></div><div class="team-chip"><span class="flag">🇸🇳</span><span class="tname">Senegal</span></div><div class="team-chip"><span class="flag">🇮🇶</span><span class="tname">Iraq</span></div><div class="team-chip"><span class="flag">🇳🇴</span><span class="tname">Norway</span></div></div>
+      </div>
+      <div class="group-card" data-group="J" onclick="filterByGroup('J')" style="--bg:#F5D5C5;--mid:#993C1D;--dark:#4A1B0C">
+        <div class="group-head">
+          <div class="group-letter">J</div>
+          <div class="group-title">Group J</div>
+          <div class="group-ball">⚽</div>
+        </div>
+        <div class="team-list"><div class="team-chip"><span class="flag">🇦🇷</span><span class="tname">Argentina</span></div><div class="team-chip"><span class="flag">🇩🇿</span><span class="tname">Algeria</span></div><div class="team-chip"><span class="flag">🇦🇹</span><span class="tname">Austria</span></div><div class="team-chip"><span class="flag">🇯🇴</span><span class="tname">Jordan</span></div></div>
+      </div>
+      <div class="group-card" data-group="K" onclick="filterByGroup('K')" style="--bg:#C5E8DA;--mid:#085041;--dark:#04342C">
+        <div class="group-head">
+          <div class="group-letter">K</div>
+          <div class="group-title">Group K</div>
+          <div class="group-ball">⚽</div>
+        </div>
+        <div class="team-list"><div class="team-chip"><span class="flag">🇵🇹</span><span class="tname">Portugal</span></div><div class="team-chip"><span class="flag">🇨🇩</span><span class="tname">DR Congo</span></div><div class="team-chip"><span class="flag">🇺🇿</span><span class="tname">Uzbekistan</span></div><div class="team-chip"><span class="flag">🇨🇴</span><span class="tname">Colombia</span></div></div>
+      </div>
+      <div class="group-card" data-group="L" onclick="filterByGroup('L')" style="--bg:#D8D4F2;--mid:#3C3489;--dark:#26215C">
+        <div class="group-head">
+          <div class="group-letter">L</div>
+          <div class="group-title">Group L</div>
+          <div class="group-ball">⚽</div>
+        </div>
+        <div class="team-list"><div class="team-chip"><span class="flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><span class="tname">England</span></div><div class="team-chip"><span class="flag">🇭🇷</span><span class="tname">Croatia</span></div><div class="team-chip"><span class="flag">🇬🇭</span><span class="tname">Ghana</span></div><div class="team-chip"><span class="flag">🇵🇦</span><span class="tname">Panama</span></div></div>
+      </div></div>
+    <p class="legend">👆 Tap a group to filter the calendar below · Tap "All matches" to see everything</p>
+
+    <h2 class="section-title"><span class="deco">📅</span>Match Calendar — Saudi Arabia Time</h2>
+    <div class="filters"><button class="fbtn active" data-filter="all" onclick="filterByGroup('all')">🌟 All matches</button><button class="fbtn" data-filter="A" onclick="filterByGroup('A')" style="--bg:#E6F1FB;--bd:#378ADD;--tx:#042C53">Group A</button><button class="fbtn" data-filter="B" onclick="filterByGroup('B')" style="--bg:#FAECE7;--bd:#D85A30;--tx:#4A1B0C">Group B</button><button class="fbtn" data-filter="C" onclick="filterByGroup('C')" style="--bg:#E1F5EE;--bd:#1D9E75;--tx:#04342C">Group C</button><button class="fbtn" data-filter="D" onclick="filterByGroup('D')" style="--bg:#EEEDFE;--bd:#7F77DD;--tx:#26215C">Group D</button><button class="fbtn" data-filter="E" onclick="filterByGroup('E')" style="--bg:#FAEEDA;--bd:#EF9F27;--tx:#412402">Group E</button><button class="fbtn" data-filter="F" onclick="filterByGroup('F')" style="--bg:#FBEAF0;--bd:#D4537E;--tx:#4B1528">Group F</button><button class="fbtn" data-filter="G" onclick="filterByGroup('G')" style="--bg:#EAF3DE;--bd:#97C459;--tx:#173404">Group G</button><button class="fbtn" data-filter="H" onclick="filterByGroup('H')" style="--bg:#FCEBEB;--bd:#E24B4A;--tx:#501313">Group H</button><button class="fbtn" data-filter="I" onclick="filterByGroup('I')" style="--bg:#CFE3F7;--bd:#0C447C;--tx:#042C53">Group I</button><button class="fbtn" data-filter="J" onclick="filterByGroup('J')" style="--bg:#F5D5C5;--bd:#993C1D;--tx:#4A1B0C">Group J</button><button class="fbtn" data-filter="K" onclick="filterByGroup('K')" style="--bg:#C5E8DA;--bd:#085041;--tx:#04342C">Group K</button><button class="fbtn" data-filter="L" onclick="filterByGroup('L')" style="--bg:#D8D4F2;--bd:#3C3489;--tx:#26215C">Group L</button><button class="fbtn" data-filter="R32" onclick="filterByGroup('R32')" style="--bg:#F1EFE8;--bd:#888780;--tx:#2C2C2A">Round of 32</button><button class="fbtn" data-filter="R16" onclick="filterByGroup('R16')" style="--bg:#F1EFE8;--bd:#5F5E5A;--tx:#2C2C2A">Round of 16</button><button class="fbtn" data-filter="QF" onclick="filterByGroup('QF')" style="--bg:#F1EFE8;--bd:#444441;--tx:#2C2C2A">Quarter-final</button><button class="fbtn" data-filter="SF" onclick="filterByGroup('SF')" style="--bg:#FAEEDA;--bd:#BA7517;--tx:#412402">Semi-final</button><button class="fbtn" data-filter="3rd" onclick="filterByGroup('3rd')" style="--bg:#F1EFE8;--bd:#5F5E5A;--tx:#2C2C2A">Third place</button><button class="fbtn" data-filter="Final" onclick="filterByGroup('Final')" style="--bg:#FAC775;--bd:#854F0B;--tx:#412402">Final</button></div>
+    <div class="timeline" id="timeline">
+      <div class="day-row" data-date="2026-06-12">
+        <div class="day-stamp">
+          <div class="day-dow">FRI</div>
+          <div class="day-num">12</div>
+          <div class="day-mon">JUN</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="A" data-date="2026-06-12" style="--mid:#378ADD;--bg:#E6F1FB;--dark:#042C53">
+            <div class="match-badge">A</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇲🇽</span><span class="tnm">Mexico</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇿🇦</span><span class="tnm">South Africa</span></span>
+              </div>
+              <div class="match-meta">📍 Estadio Azteca · Mexico City · Match #1</div>
+            </div>
+            <div class="match-time"><span class="ast-time">12:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="A" data-date="2026-06-12" style="--mid:#378ADD;--bg:#E6F1FB;--dark:#042C53">
+            <div class="match-badge">A</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇰🇷</span><span class="tnm">South Korea</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇨🇿</span><span class="tnm">Czechia</span></span>
+              </div>
+              <div class="match-meta">📍 Estadio Akron · Guadalajara · Match #2</div>
+            </div>
+            <div class="match-time"><span class="ast-time">7:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="B" data-date="2026-06-12" style="--mid:#D85A30;--bg:#FAECE7;--dark:#4A1B0C">
+            <div class="match-badge">B</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇨🇦</span><span class="tnm">Canada</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇧🇦</span><span class="tnm">Bosnia and Herzegovina</span></span>
+              </div>
+              <div class="match-meta">📍 BMO Field · Toronto · Match #3</div>
+            </div>
+            <div class="match-time"><span class="ast-time">10:00 PM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-06-13">
+        <div class="day-stamp">
+          <div class="day-dow">SAT</div>
+          <div class="day-num">13</div>
+          <div class="day-mon">JUN</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="D" data-date="2026-06-13" style="--mid:#7F77DD;--bg:#EEEDFE;--dark:#26215C">
+            <div class="match-badge">D</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇺🇸</span><span class="tnm">United States</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇵🇾</span><span class="tnm">Paraguay</span></span>
+              </div>
+              <div class="match-meta">📍 SoFi Stadium · Los Angeles · Match #4</div>
+            </div>
+            <div class="match-time"><span class="ast-time">7:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="D" data-date="2026-06-13" style="--mid:#7F77DD;--bg:#EEEDFE;--dark:#26215C">
+            <div class="match-badge">D</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇦🇺</span><span class="tnm">Australia</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇹🇷</span><span class="tnm">Turkiye</span></span>
+              </div>
+              <div class="match-meta">📍 BC Place · Vancouver · Match #6</div>
+            </div>
+            <div class="match-time"><span class="ast-time">10:00 AM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-06-14">
+        <div class="day-stamp">
+          <div class="day-dow">SUN</div>
+          <div class="day-num">14</div>
+          <div class="day-mon">JUN</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="C" data-date="2026-06-14" style="--mid:#1D9E75;--bg:#E1F5EE;--dark:#04342C">
+            <div class="match-badge">C</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇧🇷</span><span class="tnm">Brazil</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇲🇦</span><span class="tnm">Morocco</span></span>
+              </div>
+              <div class="match-meta">📍 MetLife Stadium · New York/New Jersey · Match #7</div>
+            </div>
+            <div class="match-time"><span class="ast-time">1:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="B" data-date="2026-06-14" style="--mid:#D85A30;--bg:#FAECE7;--dark:#4A1B0C">
+            <div class="match-badge">B</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇶🇦</span><span class="tnm">Qatar</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇨🇭</span><span class="tnm">Switzerland</span></span>
+              </div>
+              <div class="match-meta">📍 Levi's Stadium · San Francisco Bay Area · Match #8</div>
+            </div>
+            <div class="match-time"><span class="ast-time">1:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="C" data-date="2026-06-14" style="--mid:#1D9E75;--bg:#E1F5EE;--dark:#04342C">
+            <div class="match-badge">C</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇭🇹</span><span class="tnm">Haiti</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span><span class="tnm">Scotland</span></span>
+              </div>
+              <div class="match-meta">📍 Gillette Stadium · Boston · Match #5</div>
+            </div>
+            <div class="match-time"><span class="ast-time">4:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="E" data-date="2026-06-14" style="--mid:#EF9F27;--bg:#FAEEDA;--dark:#412402">
+            <div class="match-badge">E</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇩🇪</span><span class="tnm">Germany</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇨🇼</span><span class="tnm">Curacao</span></span>
+              </div>
+              <div class="match-meta">📍 NRG Stadium · Houston · Match #10</div>
+            </div>
+            <div class="match-time"><span class="ast-time">9:00 PM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-06-15">
+        <div class="day-stamp">
+          <div class="day-dow">MON</div>
+          <div class="day-num">15</div>
+          <div class="day-mon">JUN</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="F" data-date="2026-06-15" style="--mid:#D4537E;--bg:#FBEAF0;--dark:#4B1528">
+            <div class="match-badge">F</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇳🇱</span><span class="tnm">Netherlands</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇯🇵</span><span class="tnm">Japan</span></span>
+              </div>
+              <div class="match-meta">📍 AT&T Stadium · Dallas · Match #11</div>
+            </div>
+            <div class="match-time"><span class="ast-time">12:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="E" data-date="2026-06-15" style="--mid:#EF9F27;--bg:#FAEEDA;--dark:#412402">
+            <div class="match-badge">E</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇨🇮</span><span class="tnm">Ivory Coast</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇪🇨</span><span class="tnm">Ecuador</span></span>
+              </div>
+              <div class="match-meta">📍 Lincoln Financial Field · Philadelphia · Match #9</div>
+            </div>
+            <div class="match-time"><span class="ast-time">2:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="F" data-date="2026-06-15" style="--mid:#D4537E;--bg:#FBEAF0;--dark:#4B1528">
+            <div class="match-badge">F</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇸🇪</span><span class="tnm">Sweden</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇹🇳</span><span class="tnm">Tunisia</span></span>
+              </div>
+              <div class="match-meta">📍 Estadio BBVA · Monterrey · Match #12</div>
+            </div>
+            <div class="match-time"><span class="ast-time">7:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="H" data-date="2026-06-15" style="--mid:#E24B4A;--bg:#FCEBEB;--dark:#501313">
+            <div class="match-badge">H</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇪🇸</span><span class="tnm">Spain</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇨🇻</span><span class="tnm">Cape Verde</span></span>
+              </div>
+              <div class="match-meta">📍 Mercedes-Benz Stadium · Atlanta · Match #14</div>
+            </div>
+            <div class="match-time"><span class="ast-time">7:00 PM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-06-16">
+        <div class="day-stamp">
+          <div class="day-dow">TUE</div>
+          <div class="day-num">16</div>
+          <div class="day-mon">JUN</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="H" data-date="2026-06-16" style="--mid:#E24B4A;--bg:#FCEBEB;--dark:#501313">
+            <div class="match-badge">H</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇸🇦</span><span class="tnm">Saudi Arabia</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇺🇾</span><span class="tnm">Uruguay</span></span>
+              </div>
+              <div class="match-meta">📍 Hard Rock Stadium · Miami · Match #13</div>
+            </div>
+            <div class="match-time"><span class="ast-time">1:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="G" data-date="2026-06-16" style="--mid:#97C459;--bg:#EAF3DE;--dark:#173404">
+            <div class="match-badge">G</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇧🇪</span><span class="tnm">Belgium</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇪🇬</span><span class="tnm">Egypt</span></span>
+              </div>
+              <div class="match-meta">📍 Lumen Field · Seattle · Match #16</div>
+            </div>
+            <div class="match-time"><span class="ast-time">1:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="G" data-date="2026-06-16" style="--mid:#97C459;--bg:#EAF3DE;--dark:#173404">
+            <div class="match-badge">G</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇮🇷</span><span class="tnm">Iran</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇳🇿</span><span class="tnm">New Zealand</span></span>
+              </div>
+              <div class="match-meta">📍 SoFi Stadium · Los Angeles · Match #15</div>
+            </div>
+            <div class="match-time"><span class="ast-time">7:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="J" data-date="2026-06-16" style="--mid:#993C1D;--bg:#F5D5C5;--dark:#4A1B0C">
+            <div class="match-badge">J</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇦🇹</span><span class="tnm">Austria</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇯🇴</span><span class="tnm">Jordan</span></span>
+              </div>
+              <div class="match-meta">📍 Levi's Stadium · San Francisco Bay Area · Match #20</div>
+            </div>
+            <div class="match-time"><span class="ast-time">10:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="I" data-date="2026-06-16" style="--mid:#0C447C;--bg:#CFE3F7;--dark:#042C53">
+            <div class="match-badge">I</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇫🇷</span><span class="tnm">France</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇸🇳</span><span class="tnm">Senegal</span></span>
+              </div>
+              <div class="match-meta">📍 MetLife Stadium · New York/New Jersey · Match #17</div>
+            </div>
+            <div class="match-time"><span class="ast-time">10:00 PM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-06-17">
+        <div class="day-stamp">
+          <div class="day-dow">WED</div>
+          <div class="day-num">17</div>
+          <div class="day-mon">JUN</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="I" data-date="2026-06-17" style="--mid:#0C447C;--bg:#CFE3F7;--dark:#042C53">
+            <div class="match-badge">I</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇮🇶</span><span class="tnm">Iraq</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇳🇴</span><span class="tnm">Norway</span></span>
+              </div>
+              <div class="match-meta">📍 Gillette Stadium · Boston · Match #18</div>
+            </div>
+            <div class="match-time"><span class="ast-time">1:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="J" data-date="2026-06-17" style="--mid:#993C1D;--bg:#F5D5C5;--dark:#4A1B0C">
+            <div class="match-badge">J</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇦🇷</span><span class="tnm">Argentina</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇩🇿</span><span class="tnm">Algeria</span></span>
+              </div>
+              <div class="match-meta">📍 Arrowhead Stadium · Kansas City · Match #19</div>
+            </div>
+            <div class="match-time"><span class="ast-time">5:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="K" data-date="2026-06-17" style="--mid:#085041;--bg:#C5E8DA;--dark:#04342C">
+            <div class="match-badge">K</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇵🇹</span><span class="tnm">Portugal</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇨🇩</span><span class="tnm">DR Congo</span></span>
+              </div>
+              <div class="match-meta">📍 NRG Stadium · Houston · Match #23</div>
+            </div>
+            <div class="match-time"><span class="ast-time">9:00 PM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-06-18">
+        <div class="day-stamp">
+          <div class="day-dow">THU</div>
+          <div class="day-num">18</div>
+          <div class="day-mon">JUN</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="L" data-date="2026-06-18" style="--mid:#3C3489;--bg:#D8D4F2;--dark:#26215C">
+            <div class="match-badge">L</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><span class="tnm">England</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇭🇷</span><span class="tnm">Croatia</span></span>
+              </div>
+              <div class="match-meta">📍 AT&T Stadium · Dallas · Match #22</div>
+            </div>
+            <div class="match-time"><span class="ast-time">12:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="L" data-date="2026-06-18" style="--mid:#3C3489;--bg:#D8D4F2;--dark:#26215C">
+            <div class="match-badge">L</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇬🇭</span><span class="tnm">Ghana</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇵🇦</span><span class="tnm">Panama</span></span>
+              </div>
+              <div class="match-meta">📍 BMO Field · Toronto · Match #21</div>
+            </div>
+            <div class="match-time"><span class="ast-time">2:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="K" data-date="2026-06-18" style="--mid:#085041;--bg:#C5E8DA;--dark:#04342C">
+            <div class="match-badge">K</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇺🇿</span><span class="tnm">Uzbekistan</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇨🇴</span><span class="tnm">Colombia</span></span>
+              </div>
+              <div class="match-meta">📍 Estadio Azteca · Mexico City · Match #24</div>
+            </div>
+            <div class="match-time"><span class="ast-time">7:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="A" data-date="2026-06-18" style="--mid:#378ADD;--bg:#E6F1FB;--dark:#042C53">
+            <div class="match-badge">A</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇨🇿</span><span class="tnm">Czechia</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇿🇦</span><span class="tnm">South Africa</span></span>
+              </div>
+              <div class="match-meta">📍 Mercedes-Benz Stadium · Atlanta · Match #25</div>
+            </div>
+            <div class="match-time"><span class="ast-time">7:00 PM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-06-19">
+        <div class="day-stamp">
+          <div class="day-dow">FRI</div>
+          <div class="day-num">19</div>
+          <div class="day-mon">JUN</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="B" data-date="2026-06-19" style="--mid:#D85A30;--bg:#FAECE7;--dark:#4A1B0C">
+            <div class="match-badge">B</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇨🇭</span><span class="tnm">Switzerland</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇧🇦</span><span class="tnm">Bosnia and Herzegovina</span></span>
+              </div>
+              <div class="match-meta">📍 SoFi Stadium · Los Angeles · Match #26</div>
+            </div>
+            <div class="match-time"><span class="ast-time">1:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="B" data-date="2026-06-19" style="--mid:#D85A30;--bg:#FAECE7;--dark:#4A1B0C">
+            <div class="match-badge">B</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇨🇦</span><span class="tnm">Canada</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇶🇦</span><span class="tnm">Qatar</span></span>
+              </div>
+              <div class="match-meta">📍 BC Place · Vancouver · Match #27</div>
+            </div>
+            <div class="match-time"><span class="ast-time">4:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="A" data-date="2026-06-19" style="--mid:#378ADD;--bg:#E6F1FB;--dark:#042C53">
+            <div class="match-badge">A</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇲🇽</span><span class="tnm">Mexico</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇰🇷</span><span class="tnm">South Korea</span></span>
+              </div>
+              <div class="match-meta">📍 Estadio Akron · Guadalajara · Match #28</div>
+            </div>
+            <div class="match-time"><span class="ast-time">6:00 AM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-06-20">
+        <div class="day-stamp">
+          <div class="day-dow">SAT</div>
+          <div class="day-num">20</div>
+          <div class="day-mon">JUN</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="C" data-date="2026-06-20" style="--mid:#1D9E75;--bg:#E1F5EE;--dark:#04342C">
+            <div class="match-badge">C</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span><span class="tnm">Scotland</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇲🇦</span><span class="tnm">Morocco</span></span>
+              </div>
+              <div class="match-meta">📍 Gillette Stadium · Boston · Match #30</div>
+            </div>
+            <div class="match-time"><span class="ast-time">1:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="D" data-date="2026-06-20" style="--mid:#7F77DD;--bg:#EEEDFE;--dark:#26215C">
+            <div class="match-badge">D</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇺🇸</span><span class="tnm">United States</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇦🇺</span><span class="tnm">Australia</span></span>
+              </div>
+              <div class="match-meta">📍 Lumen Field · Seattle · Match #32</div>
+            </div>
+            <div class="match-time"><span class="ast-time">1:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="C" data-date="2026-06-20" style="--mid:#1D9E75;--bg:#E1F5EE;--dark:#04342C">
+            <div class="match-badge">C</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇧🇷</span><span class="tnm">Brazil</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇭🇹</span><span class="tnm">Haiti</span></span>
+              </div>
+              <div class="match-meta">📍 Lincoln Financial Field · Philadelphia · Match #29</div>
+            </div>
+            <div class="match-time"><span class="ast-time">4:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="D" data-date="2026-06-20" style="--mid:#7F77DD;--bg:#EEEDFE;--dark:#26215C">
+            <div class="match-badge">D</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇹🇷</span><span class="tnm">Turkiye</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇵🇾</span><span class="tnm">Paraguay</span></span>
+              </div>
+              <div class="match-meta">📍 Levi's Stadium · San Francisco Bay Area · Match #31</div>
+            </div>
+            <div class="match-time"><span class="ast-time">9:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="F" data-date="2026-06-20" style="--mid:#D4537E;--bg:#FBEAF0;--dark:#4B1528">
+            <div class="match-badge">F</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇹🇳</span><span class="tnm">Tunisia</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇯🇵</span><span class="tnm">Japan</span></span>
+              </div>
+              <div class="match-meta">📍 Estadio BBVA · Monterrey · Match #36</div>
+            </div>
+            <div class="match-time"><span class="ast-time">9:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="F" data-date="2026-06-20" style="--mid:#D4537E;--bg:#FBEAF0;--dark:#4B1528">
+            <div class="match-badge">F</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇳🇱</span><span class="tnm">Netherlands</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇸🇪</span><span class="tnm">Sweden</span></span>
+              </div>
+              <div class="match-meta">📍 NRG Stadium · Houston · Match #35</div>
+            </div>
+            <div class="match-time"><span class="ast-time">9:00 PM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="E" data-date="2026-06-20" style="--mid:#EF9F27;--bg:#FAEEDA;--dark:#412402">
+            <div class="match-badge">E</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇩🇪</span><span class="tnm">Germany</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇨🇮</span><span class="tnm">Ivory Coast</span></span>
+              </div>
+              <div class="match-meta">📍 BMO Field · Toronto · Match #33</div>
+            </div>
+            <div class="match-time"><span class="ast-time">11:00 PM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-06-21">
+        <div class="day-stamp">
+          <div class="day-dow">SUN</div>
+          <div class="day-num">21</div>
+          <div class="day-mon">JUN</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="E" data-date="2026-06-21" style="--mid:#EF9F27;--bg:#FAEEDA;--dark:#412402">
+            <div class="match-badge">E</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇪🇨</span><span class="tnm">Ecuador</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇨🇼</span><span class="tnm">Curacao</span></span>
+              </div>
+              <div class="match-meta">📍 Arrowhead Stadium · Kansas City · Match #34</div>
+            </div>
+            <div class="match-time"><span class="ast-time">4:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="H" data-date="2026-06-21" style="--mid:#E24B4A;--bg:#FCEBEB;--dark:#501313">
+            <div class="match-badge">H</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇪🇸</span><span class="tnm">Spain</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇸🇦</span><span class="tnm">Saudi Arabia</span></span>
+              </div>
+              <div class="match-meta">📍 Mercedes-Benz Stadium · Atlanta · Match #38</div>
+            </div>
+            <div class="match-time"><span class="ast-time">7:00 PM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-06-22">
+        <div class="day-stamp">
+          <div class="day-dow">MON</div>
+          <div class="day-num">22</div>
+          <div class="day-mon">JUN</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="H" data-date="2026-06-22" style="--mid:#E24B4A;--bg:#FCEBEB;--dark:#501313">
+            <div class="match-badge">H</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇺🇾</span><span class="tnm">Uruguay</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇨🇻</span><span class="tnm">Cape Verde</span></span>
+              </div>
+              <div class="match-meta">📍 Hard Rock Stadium · Miami · Match #37</div>
+            </div>
+            <div class="match-time"><span class="ast-time">1:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="G" data-date="2026-06-22" style="--mid:#97C459;--bg:#EAF3DE;--dark:#173404">
+            <div class="match-badge">G</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇧🇪</span><span class="tnm">Belgium</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇮🇷</span><span class="tnm">Iran</span></span>
+              </div>
+              <div class="match-meta">📍 SoFi Stadium · Los Angeles · Match #39</div>
+            </div>
+            <div class="match-time"><span class="ast-time">1:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="G" data-date="2026-06-22" style="--mid:#97C459;--bg:#EAF3DE;--dark:#173404">
+            <div class="match-badge">G</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇳🇿</span><span class="tnm">New Zealand</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇪🇬</span><span class="tnm">Egypt</span></span>
+              </div>
+              <div class="match-meta">📍 BC Place · Vancouver · Match #40</div>
+            </div>
+            <div class="match-time"><span class="ast-time">7:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="J" data-date="2026-06-22" style="--mid:#993C1D;--bg:#F5D5C5;--dark:#4A1B0C">
+            <div class="match-badge">J</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇦🇷</span><span class="tnm">Argentina</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇦🇹</span><span class="tnm">Austria</span></span>
+              </div>
+              <div class="match-meta">📍 AT&T Stadium · Dallas · Match #43</div>
+            </div>
+            <div class="match-time"><span class="ast-time">9:00 PM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-06-23">
+        <div class="day-stamp">
+          <div class="day-dow">TUE</div>
+          <div class="day-num">23</div>
+          <div class="day-mon">JUN</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="I" data-date="2026-06-23" style="--mid:#0C447C;--bg:#CFE3F7;--dark:#042C53">
+            <div class="match-badge">I</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇫🇷</span><span class="tnm">France</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇮🇶</span><span class="tnm">Iraq</span></span>
+              </div>
+              <div class="match-meta">📍 Lincoln Financial Field · Philadelphia · Match #42</div>
+            </div>
+            <div class="match-time"><span class="ast-time">12:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="I" data-date="2026-06-23" style="--mid:#0C447C;--bg:#CFE3F7;--dark:#042C53">
+            <div class="match-badge">I</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇳🇴</span><span class="tnm">Norway</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇸🇳</span><span class="tnm">Senegal</span></span>
+              </div>
+              <div class="match-meta">📍 MetLife Stadium · New York/New Jersey · Match #41</div>
+            </div>
+            <div class="match-time"><span class="ast-time">3:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="J" data-date="2026-06-23" style="--mid:#993C1D;--bg:#F5D5C5;--dark:#4A1B0C">
+            <div class="match-badge">J</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇯🇴</span><span class="tnm">Jordan</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇩🇿</span><span class="tnm">Algeria</span></span>
+              </div>
+              <div class="match-meta">📍 Levi's Stadium · San Francisco Bay Area · Match #44</div>
+            </div>
+            <div class="match-time"><span class="ast-time">9:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="K" data-date="2026-06-23" style="--mid:#085041;--bg:#C5E8DA;--dark:#04342C">
+            <div class="match-badge">K</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇵🇹</span><span class="tnm">Portugal</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇺🇿</span><span class="tnm">Uzbekistan</span></span>
+              </div>
+              <div class="match-meta">📍 NRG Stadium · Houston · Match #47</div>
+            </div>
+            <div class="match-time"><span class="ast-time">9:00 PM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="L" data-date="2026-06-23" style="--mid:#3C3489;--bg:#D8D4F2;--dark:#26215C">
+            <div class="match-badge">L</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><span class="tnm">England</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇬🇭</span><span class="tnm">Ghana</span></span>
+              </div>
+              <div class="match-meta">📍 Gillette Stadium · Boston · Match #45</div>
+            </div>
+            <div class="match-time"><span class="ast-time">11:00 PM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-06-24">
+        <div class="day-stamp">
+          <div class="day-dow">WED</div>
+          <div class="day-num">24</div>
+          <div class="day-mon">JUN</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="L" data-date="2026-06-24" style="--mid:#3C3489;--bg:#D8D4F2;--dark:#26215C">
+            <div class="match-badge">L</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇵🇦</span><span class="tnm">Panama</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇭🇷</span><span class="tnm">Croatia</span></span>
+              </div>
+              <div class="match-meta">📍 BMO Field · Toronto · Match #46</div>
+            </div>
+            <div class="match-time"><span class="ast-time">2:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="K" data-date="2026-06-24" style="--mid:#085041;--bg:#C5E8DA;--dark:#04342C">
+            <div class="match-badge">K</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇨🇴</span><span class="tnm">Colombia</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇨🇩</span><span class="tnm">DR Congo</span></span>
+              </div>
+              <div class="match-meta">📍 Estadio Akron · Guadalajara · Match #48</div>
+            </div>
+            <div class="match-time"><span class="ast-time">7:00 AM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-06-25">
+        <div class="day-stamp">
+          <div class="day-dow">THU</div>
+          <div class="day-num">25</div>
+          <div class="day-mon">JUN</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="C" data-date="2026-06-25" style="--mid:#1D9E75;--bg:#E1F5EE;--dark:#04342C">
+            <div class="match-badge">C</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span><span class="tnm">Scotland</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇧🇷</span><span class="tnm">Brazil</span></span>
+              </div>
+              <div class="match-meta">📍 Hard Rock Stadium · Miami · Match #49</div>
+            </div>
+            <div class="match-time"><span class="ast-time">1:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="C" data-date="2026-06-25" style="--mid:#1D9E75;--bg:#E1F5EE;--dark:#04342C">
+            <div class="match-badge">C</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇲🇦</span><span class="tnm">Morocco</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇭🇹</span><span class="tnm">Haiti</span></span>
+              </div>
+              <div class="match-meta">📍 Mercedes-Benz Stadium · Atlanta · Match #50</div>
+            </div>
+            <div class="match-time"><span class="ast-time">1:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="B" data-date="2026-06-25" style="--mid:#D85A30;--bg:#FAECE7;--dark:#4A1B0C">
+            <div class="match-badge">B</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇨🇭</span><span class="tnm">Switzerland</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇨🇦</span><span class="tnm">Canada</span></span>
+              </div>
+              <div class="match-meta">📍 BC Place · Vancouver · Match #51</div>
+            </div>
+            <div class="match-time"><span class="ast-time">1:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="B" data-date="2026-06-25" style="--mid:#D85A30;--bg:#FAECE7;--dark:#4A1B0C">
+            <div class="match-badge">B</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇧🇦</span><span class="tnm">Bosnia and Herzegovina</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇶🇦</span><span class="tnm">Qatar</span></span>
+              </div>
+              <div class="match-meta">📍 Lumen Field · Seattle · Match #52</div>
+            </div>
+            <div class="match-time"><span class="ast-time">1:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="A" data-date="2026-06-25" style="--mid:#378ADD;--bg:#E6F1FB;--dark:#042C53">
+            <div class="match-badge">A</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇨🇿</span><span class="tnm">Czechia</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇲🇽</span><span class="tnm">Mexico</span></span>
+              </div>
+              <div class="match-meta">📍 Estadio Azteca · Mexico City · Match #53</div>
+            </div>
+            <div class="match-time"><span class="ast-time">6:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="A" data-date="2026-06-25" style="--mid:#378ADD;--bg:#E6F1FB;--dark:#042C53">
+            <div class="match-badge">A</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇿🇦</span><span class="tnm">South Africa</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇰🇷</span><span class="tnm">South Korea</span></span>
+              </div>
+              <div class="match-meta">📍 Estadio BBVA · Monterrey · Match #54</div>
+            </div>
+            <div class="match-time"><span class="ast-time">6:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="E" data-date="2026-06-25" style="--mid:#EF9F27;--bg:#FAEEDA;--dark:#412402">
+            <div class="match-badge">E</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇨🇼</span><span class="tnm">Curacao</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇨🇮</span><span class="tnm">Ivory Coast</span></span>
+              </div>
+              <div class="match-meta">📍 Lincoln Financial Field · Philadelphia · Match #55</div>
+            </div>
+            <div class="match-time"><span class="ast-time">11:00 PM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="E" data-date="2026-06-25" style="--mid:#EF9F27;--bg:#FAEEDA;--dark:#412402">
+            <div class="match-badge">E</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇪🇨</span><span class="tnm">Ecuador</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇩🇪</span><span class="tnm">Germany</span></span>
+              </div>
+              <div class="match-meta">📍 MetLife Stadium · New York/New Jersey · Match #56</div>
+            </div>
+            <div class="match-time"><span class="ast-time">11:00 PM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-06-26">
+        <div class="day-stamp">
+          <div class="day-dow">FRI</div>
+          <div class="day-num">26</div>
+          <div class="day-mon">JUN</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="F" data-date="2026-06-26" style="--mid:#D4537E;--bg:#FBEAF0;--dark:#4B1528">
+            <div class="match-badge">F</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇯🇵</span><span class="tnm">Japan</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇸🇪</span><span class="tnm">Sweden</span></span>
+              </div>
+              <div class="match-meta">📍 AT&T Stadium · Dallas · Match #57</div>
+            </div>
+            <div class="match-time"><span class="ast-time">3:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="F" data-date="2026-06-26" style="--mid:#D4537E;--bg:#FBEAF0;--dark:#4B1528">
+            <div class="match-badge">F</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇹🇳</span><span class="tnm">Tunisia</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇳🇱</span><span class="tnm">Netherlands</span></span>
+              </div>
+              <div class="match-meta">📍 Arrowhead Stadium · Kansas City · Match #58</div>
+            </div>
+            <div class="match-time"><span class="ast-time">3:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="D" data-date="2026-06-26" style="--mid:#7F77DD;--bg:#EEEDFE;--dark:#26215C">
+            <div class="match-badge">D</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇹🇷</span><span class="tnm">Turkiye</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇺🇸</span><span class="tnm">United States</span></span>
+              </div>
+              <div class="match-meta">📍 SoFi Stadium · Los Angeles · Match #59</div>
+            </div>
+            <div class="match-time"><span class="ast-time">8:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="D" data-date="2026-06-26" style="--mid:#7F77DD;--bg:#EEEDFE;--dark:#26215C">
+            <div class="match-badge">D</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇵🇾</span><span class="tnm">Paraguay</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇦🇺</span><span class="tnm">Australia</span></span>
+              </div>
+              <div class="match-meta">📍 Levi's Stadium · San Francisco Bay Area · Match #60</div>
+            </div>
+            <div class="match-time"><span class="ast-time">8:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="I" data-date="2026-06-26" style="--mid:#0C447C;--bg:#CFE3F7;--dark:#042C53">
+            <div class="match-badge">I</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇳🇴</span><span class="tnm">Norway</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇫🇷</span><span class="tnm">France</span></span>
+              </div>
+              <div class="match-meta">📍 Gillette Stadium · Boston · Match #61</div>
+            </div>
+            <div class="match-time"><span class="ast-time">10:00 PM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="I" data-date="2026-06-26" style="--mid:#0C447C;--bg:#CFE3F7;--dark:#042C53">
+            <div class="match-badge">I</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇸🇳</span><span class="tnm">Senegal</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇮🇶</span><span class="tnm">Iraq</span></span>
+              </div>
+              <div class="match-meta">📍 BMO Field · Toronto · Match #62</div>
+            </div>
+            <div class="match-time"><span class="ast-time">10:00 PM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-06-27">
+        <div class="day-stamp">
+          <div class="day-dow">SAT</div>
+          <div class="day-num">27</div>
+          <div class="day-mon">JUN</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="H" data-date="2026-06-27" style="--mid:#E24B4A;--bg:#FCEBEB;--dark:#501313">
+            <div class="match-badge">H</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇨🇻</span><span class="tnm">Cape Verde</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇸🇦</span><span class="tnm">Saudi Arabia</span></span>
+              </div>
+              <div class="match-meta">📍 NRG Stadium · Houston · Match #65</div>
+            </div>
+            <div class="match-time"><span class="ast-time">4:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="H" data-date="2026-06-27" style="--mid:#E24B4A;--bg:#FCEBEB;--dark:#501313">
+            <div class="match-badge">H</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇺🇾</span><span class="tnm">Uruguay</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇪🇸</span><span class="tnm">Spain</span></span>
+              </div>
+              <div class="match-meta">📍 Estadio Akron · Guadalajara · Match #66</div>
+            </div>
+            <div class="match-time"><span class="ast-time">5:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="G" data-date="2026-06-27" style="--mid:#97C459;--bg:#EAF3DE;--dark:#173404">
+            <div class="match-badge">G</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇪🇬</span><span class="tnm">Egypt</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇮🇷</span><span class="tnm">Iran</span></span>
+              </div>
+              <div class="match-meta">📍 Lumen Field · Seattle · Match #63</div>
+            </div>
+            <div class="match-time"><span class="ast-time">9:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="G" data-date="2026-06-27" style="--mid:#97C459;--bg:#EAF3DE;--dark:#173404">
+            <div class="match-badge">G</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇳🇿</span><span class="tnm">New Zealand</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇧🇪</span><span class="tnm">Belgium</span></span>
+              </div>
+              <div class="match-meta">📍 BC Place · Vancouver · Match #64</div>
+            </div>
+            <div class="match-time"><span class="ast-time">9:00 AM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-06-28">
+        <div class="day-stamp">
+          <div class="day-dow">SUN</div>
+          <div class="day-num">28</div>
+          <div class="day-mon">JUN</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="L" data-date="2026-06-28" style="--mid:#3C3489;--bg:#D8D4F2;--dark:#26215C">
+            <div class="match-badge">L</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇵🇦</span><span class="tnm">Panama</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span><span class="tnm">England</span></span>
+              </div>
+              <div class="match-meta">📍 MetLife Stadium · New York/New Jersey · Match #67</div>
+            </div>
+            <div class="match-time"><span class="ast-time">12:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="L" data-date="2026-06-28" style="--mid:#3C3489;--bg:#D8D4F2;--dark:#26215C">
+            <div class="match-badge">L</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇭🇷</span><span class="tnm">Croatia</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇬🇭</span><span class="tnm">Ghana</span></span>
+              </div>
+              <div class="match-meta">📍 Lincoln Financial Field · Philadelphia · Match #68</div>
+            </div>
+            <div class="match-time"><span class="ast-time">12:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="K" data-date="2026-06-28" style="--mid:#085041;--bg:#C5E8DA;--dark:#04342C">
+            <div class="match-badge">K</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇨🇴</span><span class="tnm">Colombia</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇵🇹</span><span class="tnm">Portugal</span></span>
+              </div>
+              <div class="match-meta">📍 Hard Rock Stadium · Miami · Match #71</div>
+            </div>
+            <div class="match-time"><span class="ast-time">2:30 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="K" data-date="2026-06-28" style="--mid:#085041;--bg:#C5E8DA;--dark:#04342C">
+            <div class="match-badge">K</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇨🇩</span><span class="tnm">DR Congo</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇺🇿</span><span class="tnm">Uzbekistan</span></span>
+              </div>
+              <div class="match-meta">📍 Mercedes-Benz Stadium · Atlanta · Match #72</div>
+            </div>
+            <div class="match-time"><span class="ast-time">2:30 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="J" data-date="2026-06-28" style="--mid:#993C1D;--bg:#F5D5C5;--dark:#4A1B0C">
+            <div class="match-badge">J</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇩🇿</span><span class="tnm">Algeria</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇦🇹</span><span class="tnm">Austria</span></span>
+              </div>
+              <div class="match-meta">📍 Arrowhead Stadium · Kansas City · Match #69</div>
+            </div>
+            <div class="match-time"><span class="ast-time">6:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="J" data-date="2026-06-28" style="--mid:#993C1D;--bg:#F5D5C5;--dark:#4A1B0C">
+            <div class="match-badge">J</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">🇯🇴</span><span class="tnm">Jordan</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">🇦🇷</span><span class="tnm">Argentina</span></span>
+              </div>
+              <div class="match-meta">📍 AT&T Stadium · Dallas · Match #70</div>
+            </div>
+            <div class="match-time"><span class="ast-time">6:00 AM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-06-29">
+        <div class="day-stamp">
+          <div class="day-dow">MON</div>
+          <div class="day-num">29</div>
+          <div class="day-mon">JUN</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="R32" data-date="2026-06-29" style="--mid:#888780;--bg:#F1EFE8;--dark:#2C2C2A">
+            <div class="match-badge">R32</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Runner-up Group A</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Runner-up Group B</span></span>
+              </div>
+              <div class="match-meta">📍 SoFi Stadium · Los Angeles · Match #73</div>
+            </div>
+            <div class="match-time"><span class="ast-time">1:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="R32" data-date="2026-06-29" style="--mid:#888780;--bg:#F1EFE8;--dark:#2C2C2A">
+            <div class="match-badge">R32</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Group C</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Runner-up Group F</span></span>
+              </div>
+              <div class="match-meta">📍 NRG Stadium · Houston · Match #76</div>
+            </div>
+            <div class="match-time"><span class="ast-time">9:00 PM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="R32" data-date="2026-06-29" style="--mid:#888780;--bg:#F1EFE8;--dark:#2C2C2A">
+            <div class="match-badge">R32</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Group E</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Best 3rd A/B/C/D/F</span></span>
+              </div>
+              <div class="match-meta">📍 Gillette Stadium · Boston · Match #74</div>
+            </div>
+            <div class="match-time"><span class="ast-time">11:30 PM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-06-30">
+        <div class="day-stamp">
+          <div class="day-dow">TUE</div>
+          <div class="day-num">30</div>
+          <div class="day-mon">JUN</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="R32" data-date="2026-06-30" style="--mid:#888780;--bg:#F1EFE8;--dark:#2C2C2A">
+            <div class="match-badge">R32</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Group F</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Runner-up Group C</span></span>
+              </div>
+              <div class="match-meta">📍 Estadio BBVA · Monterrey · Match #75</div>
+            </div>
+            <div class="match-time"><span class="ast-time">6:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="R32" data-date="2026-06-30" style="--mid:#888780;--bg:#F1EFE8;--dark:#2C2C2A">
+            <div class="match-badge">R32</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Runner-up Group E</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Runner-up Group I</span></span>
+              </div>
+              <div class="match-meta">📍 AT&T Stadium · Dallas · Match #78</div>
+            </div>
+            <div class="match-time"><span class="ast-time">9:00 PM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-07-01">
+        <div class="day-stamp">
+          <div class="day-dow">WED</div>
+          <div class="day-num">1</div>
+          <div class="day-mon">JUL</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="R32" data-date="2026-07-01" style="--mid:#888780;--bg:#F1EFE8;--dark:#2C2C2A">
+            <div class="match-badge">R32</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Group I</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Best 3rd C/D/F/G/H</span></span>
+              </div>
+              <div class="match-meta">📍 MetLife Stadium · New York/New Jersey · Match #77</div>
+            </div>
+            <div class="match-time"><span class="ast-time">12:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="R32" data-date="2026-07-01" style="--mid:#888780;--bg:#F1EFE8;--dark:#2C2C2A">
+            <div class="match-badge">R32</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Group A</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Best 3rd C/E/F/H/I</span></span>
+              </div>
+              <div class="match-meta">📍 Estadio Azteca · Mexico City · Match #79</div>
+            </div>
+            <div class="match-time"><span class="ast-time">6:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="R32" data-date="2026-07-01" style="--mid:#888780;--bg:#F1EFE8;--dark:#2C2C2A">
+            <div class="match-badge">R32</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Group L</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Best 3rd E/H/I/J/K</span></span>
+              </div>
+              <div class="match-meta">📍 Mercedes-Benz Stadium · Atlanta · Match #80</div>
+            </div>
+            <div class="match-time"><span class="ast-time">7:00 PM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-07-02">
+        <div class="day-stamp">
+          <div class="day-dow">THU</div>
+          <div class="day-num">2</div>
+          <div class="day-mon">JUL</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="R32" data-date="2026-07-02" style="--mid:#888780;--bg:#F1EFE8;--dark:#2C2C2A">
+            <div class="match-badge">R32</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Group G</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Best 3rd A/E/H/I/J</span></span>
+              </div>
+              <div class="match-meta">📍 Lumen Field · Seattle · Match #82</div>
+            </div>
+            <div class="match-time"><span class="ast-time">2:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="R32" data-date="2026-07-02" style="--mid:#888780;--bg:#F1EFE8;--dark:#2C2C2A">
+            <div class="match-badge">R32</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Group D</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Best 3rd B/E/F/I/J</span></span>
+              </div>
+              <div class="match-meta">📍 Levi's Stadium · San Francisco Bay Area · Match #81</div>
+            </div>
+            <div class="match-time"><span class="ast-time">6:00 AM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-07-03">
+        <div class="day-stamp">
+          <div class="day-dow">FRI</div>
+          <div class="day-num">3</div>
+          <div class="day-mon">JUL</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="R32" data-date="2026-07-03" style="--mid:#888780;--bg:#F1EFE8;--dark:#2C2C2A">
+            <div class="match-badge">R32</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Group H</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Runner-up Group J</span></span>
+              </div>
+              <div class="match-meta">📍 SoFi Stadium · Los Angeles · Match #84</div>
+            </div>
+            <div class="match-time"><span class="ast-time">1:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="R32" data-date="2026-07-03" style="--mid:#888780;--bg:#F1EFE8;--dark:#2C2C2A">
+            <div class="match-badge">R32</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Runner-up Group K</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Runner-up Group L</span></span>
+              </div>
+              <div class="match-meta">📍 BMO Field · Toronto · Match #83</div>
+            </div>
+            <div class="match-time"><span class="ast-time">2:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="R32" data-date="2026-07-03" style="--mid:#888780;--bg:#F1EFE8;--dark:#2C2C2A">
+            <div class="match-badge">R32</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Group B</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Best 3rd E/F/G/I/J</span></span>
+              </div>
+              <div class="match-meta">📍 BC Place · Vancouver · Match #85</div>
+            </div>
+            <div class="match-time"><span class="ast-time">9:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="R32" data-date="2026-07-03" style="--mid:#888780;--bg:#F1EFE8;--dark:#2C2C2A">
+            <div class="match-badge">R32</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Runner-up Group D</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Runner-up Group G</span></span>
+              </div>
+              <div class="match-meta">📍 AT&T Stadium · Dallas · Match #88</div>
+            </div>
+            <div class="match-time"><span class="ast-time">10:00 PM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-07-04">
+        <div class="day-stamp">
+          <div class="day-dow">SAT</div>
+          <div class="day-num">4</div>
+          <div class="day-mon">JUL</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="R32" data-date="2026-07-04" style="--mid:#888780;--bg:#F1EFE8;--dark:#2C2C2A">
+            <div class="match-badge">R32</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Group J</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Runner-up Group H</span></span>
+              </div>
+              <div class="match-meta">📍 Hard Rock Stadium · Miami · Match #86</div>
+            </div>
+            <div class="match-time"><span class="ast-time">1:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="R32" data-date="2026-07-04" style="--mid:#888780;--bg:#F1EFE8;--dark:#2C2C2A">
+            <div class="match-badge">R32</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Group K</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Best 3rd D/E/I/J/L</span></span>
+              </div>
+              <div class="match-meta">📍 Arrowhead Stadium · Kansas City · Match #87</div>
+            </div>
+            <div class="match-time"><span class="ast-time">5:30 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="R16" data-date="2026-07-04" style="--mid:#5F5E5A;--bg:#F1EFE8;--dark:#2C2C2A">
+            <div class="match-badge">R16</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Match 73</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Match 75</span></span>
+              </div>
+              <div class="match-meta">📍 NRG Stadium · Houston · Match #90</div>
+            </div>
+            <div class="match-time"><span class="ast-time">9:00 PM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-07-05">
+        <div class="day-stamp">
+          <div class="day-dow">SUN</div>
+          <div class="day-num">5</div>
+          <div class="day-mon">JUL</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="R16" data-date="2026-07-05" style="--mid:#5F5E5A;--bg:#F1EFE8;--dark:#2C2C2A">
+            <div class="match-badge">R16</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Match 74</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Match 77</span></span>
+              </div>
+              <div class="match-meta">📍 Lincoln Financial Field · Philadelphia · Match #89</div>
+            </div>
+            <div class="match-time"><span class="ast-time">12:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="R16" data-date="2026-07-05" style="--mid:#5F5E5A;--bg:#F1EFE8;--dark:#2C2C2A">
+            <div class="match-badge">R16</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Match 76</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Match 78</span></span>
+              </div>
+              <div class="match-meta">📍 MetLife Stadium · New York/New Jersey · Match #91</div>
+            </div>
+            <div class="match-time"><span class="ast-time">11:00 PM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-07-06">
+        <div class="day-stamp">
+          <div class="day-dow">MON</div>
+          <div class="day-num">6</div>
+          <div class="day-mon">JUL</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="R16" data-date="2026-07-06" style="--mid:#5F5E5A;--bg:#F1EFE8;--dark:#2C2C2A">
+            <div class="match-badge">R16</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Match 79</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Match 80</span></span>
+              </div>
+              <div class="match-meta">📍 Estadio Azteca · Mexico City · Match #92</div>
+            </div>
+            <div class="match-time"><span class="ast-time">5:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="R16" data-date="2026-07-06" style="--mid:#5F5E5A;--bg:#F1EFE8;--dark:#2C2C2A">
+            <div class="match-badge">R16</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Match 83</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Match 84</span></span>
+              </div>
+              <div class="match-meta">📍 AT&T Stadium · Dallas · Match #93</div>
+            </div>
+            <div class="match-time"><span class="ast-time">11:00 PM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-07-07">
+        <div class="day-stamp">
+          <div class="day-dow">TUE</div>
+          <div class="day-num">7</div>
+          <div class="day-mon">JUL</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="R16" data-date="2026-07-07" style="--mid:#5F5E5A;--bg:#F1EFE8;--dark:#2C2C2A">
+            <div class="match-badge">R16</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Match 81</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Match 82</span></span>
+              </div>
+              <div class="match-meta">📍 Lumen Field · Seattle · Match #94</div>
+            </div>
+            <div class="match-time"><span class="ast-time">6:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="R16" data-date="2026-07-07" style="--mid:#5F5E5A;--bg:#F1EFE8;--dark:#2C2C2A">
+            <div class="match-badge">R16</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Match 86</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Match 88</span></span>
+              </div>
+              <div class="match-meta">📍 Mercedes-Benz Stadium · Atlanta · Match #95</div>
+            </div>
+            <div class="match-time"><span class="ast-time">7:00 PM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-07-08">
+        <div class="day-stamp">
+          <div class="day-dow">WED</div>
+          <div class="day-num">8</div>
+          <div class="day-mon">JUL</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="R16" data-date="2026-07-08" style="--mid:#5F5E5A;--bg:#F1EFE8;--dark:#2C2C2A">
+            <div class="match-badge">R16</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Match 85</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Match 87</span></span>
+              </div>
+              <div class="match-meta">📍 BC Place · Vancouver · Match #96</div>
+            </div>
+            <div class="match-time"><span class="ast-time">2:00 AM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-07-09">
+        <div class="day-stamp">
+          <div class="day-dow">THU</div>
+          <div class="day-num">9</div>
+          <div class="day-mon">JUL</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="QF" data-date="2026-07-09" style="--mid:#444441;--bg:#F1EFE8;--dark:#2C2C2A">
+            <div class="match-badge">QF</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Match 89</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Match 90</span></span>
+              </div>
+              <div class="match-meta">📍 Gillette Stadium · Boston · Match #97</div>
+            </div>
+            <div class="match-time"><span class="ast-time">11:00 PM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-07-11">
+        <div class="day-stamp">
+          <div class="day-dow">SAT</div>
+          <div class="day-num">11</div>
+          <div class="day-mon">JUL</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="QF" data-date="2026-07-11" style="--mid:#444441;--bg:#F1EFE8;--dark:#2C2C2A">
+            <div class="match-badge">QF</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Match 93</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Match 94</span></span>
+              </div>
+              <div class="match-meta">📍 SoFi Stadium · Los Angeles · Match #98</div>
+            </div>
+            <div class="match-time"><span class="ast-time">1:00 AM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-07-12">
+        <div class="day-stamp">
+          <div class="day-dow">SUN</div>
+          <div class="day-num">12</div>
+          <div class="day-mon">JUL</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="QF" data-date="2026-07-12" style="--mid:#444441;--bg:#F1EFE8;--dark:#2C2C2A">
+            <div class="match-badge">QF</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Match 91</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Match 92</span></span>
+              </div>
+              <div class="match-meta">📍 Hard Rock Stadium · Miami · Match #99</div>
+            </div>
+            <div class="match-time"><span class="ast-time">12:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="QF" data-date="2026-07-12" style="--mid:#444441;--bg:#F1EFE8;--dark:#2C2C2A">
+            <div class="match-badge">QF</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Match 95</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Match 96</span></span>
+              </div>
+              <div class="match-meta">📍 Arrowhead Stadium · Kansas City · Match #100</div>
+            </div>
+            <div class="match-time"><span class="ast-time">5:00 AM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-07-14">
+        <div class="day-stamp">
+          <div class="day-dow">TUE</div>
+          <div class="day-num">14</div>
+          <div class="day-mon">JUL</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="SF" data-date="2026-07-14" style="--mid:#BA7517;--bg:#FAEEDA;--dark:#412402">
+            <div class="match-badge">SF</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Match 97</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Match 98</span></span>
+              </div>
+              <div class="match-meta">📍 AT&T Stadium · Dallas · Match #101</div>
+            </div>
+            <div class="match-time"><span class="ast-time">11:00 PM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-07-15">
+        <div class="day-stamp">
+          <div class="day-dow">WED</div>
+          <div class="day-num">15</div>
+          <div class="day-mon">JUL</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="SF" data-date="2026-07-15" style="--mid:#BA7517;--bg:#FAEEDA;--dark:#412402">
+            <div class="match-badge">SF</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Match 99</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Match 100</span></span>
+              </div>
+              <div class="match-meta">📍 Mercedes-Benz Stadium · Atlanta · Match #102</div>
+            </div>
+            <div class="match-time"><span class="ast-time">10:00 PM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div>
+      <div class="day-row" data-date="2026-07-19">
+        <div class="day-stamp">
+          <div class="day-dow">SUN</div>
+          <div class="day-num">19</div>
+          <div class="day-mon">JUL</div>
+        </div>
+        <div class="day-matches">
+          <div class="match-card" data-group="3rd" data-date="2026-07-19" style="--mid:#5F5E5A;--bg:#F1EFE8;--dark:#2C2C2A">
+            <div class="match-badge">3RD</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Loser Match 101</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Loser Match 102</span></span>
+              </div>
+              <div class="match-meta">📍 Hard Rock Stadium · Miami · Match #103</div>
+            </div>
+            <div class="match-time"><span class="ast-time">12:00 AM</span><span class="ast-tag">AST</span></div>
+          </div>
+          <div class="match-card" data-group="Final" data-date="2026-07-19" style="--mid:#854F0B;--bg:#FAC775;--dark:#412402">
+            <div class="match-badge">FINAL</div>
+            <div class="match-body">
+              <div class="match-teams">
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Match 101</span></span>
+                <span class="vs">⚔</span>
+                <span class="team"><span class="bigflag">⚽</span><span class="tnm">Winner Match 102</span></span>
+              </div>
+              <div class="match-meta">📍 MetLife Stadium · New York/New Jersey · Match #104</div>
+            </div>
+            <div class="match-time"><span class="ast-time">10:00 PM</span><span class="ast-tag">AST</span></div>
+          </div></div>
+      </div></div>
+    <div class="empty hidden" id="empty">🤷 No matches match this filter.</div>
+
+    <div class="footer">
+      <div class="ball-row">⚽ 🏆 ⚽ 🏆 ⚽</div>
+      <div>48 teams · 12 groups · 16 host cities · 1 trophy · All times AST (UTC+3)</div>
+    </div>
+
+  </div>
+
+<script>
+function filterByGroup(g) {
+  document.querySelectorAll('.fbtn').forEach(b => b.classList.toggle('active', b.dataset.filter === g));
+  const cards = document.querySelectorAll('.match-card');
+  const days = document.querySelectorAll('.day-row');
+  let visibleCount = 0;
+  cards.forEach(c => {
+    const show = (g === 'all') || (c.dataset.group === g);
+    c.classList.toggle('hidden', !show);
+    if (show) visibleCount++;
+  });
+  days.forEach(d => {
+    const anyVisible = d.querySelectorAll('.match-card:not(.hidden)').length > 0;
+    d.classList.toggle('hidden', !anyVisible);
+  });
+  document.getElementById('empty').classList.toggle('hidden', visibleCount > 0);
+  document.querySelectorAll('.group-card').forEach(gc => {
+    gc.style.opacity = (g === 'all' || gc.dataset.group === g) ? '1' : '0.35';
+  });
+}
+</script>
+</body>
+</html>
