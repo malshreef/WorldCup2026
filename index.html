@@ -334,6 +334,23 @@
     margin-top: 2px; color: white; opacity: 0.75;
   }
   .match-card.played .match-time { opacity: 0.55; }
+  .match-score.live { background: #e0341c; box-shadow: 0 3px 0 rgba(150,20,8,0.6); }
+  .match-score.live .score-num { color: #fff; }
+  .match-score.live .score-tag { color: #ffe3dc; animation: blink 1.3s ease-in-out infinite; }
+  @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+  .match-card.live::before { background: #e0341c; }
+  .live-note {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    flex-wrap: wrap;
+    font-size: 13px; font-weight: 600; color: #5F5E5A;
+    margin: -10px 0 18px;
+  }
+  .live-note .dot {
+    width: 9px; height: 9px; border-radius: 50%; background: #26de81;
+    box-shadow: 0 0 0 3px rgba(38,222,129,0.25);
+  }
+  .live-note.err .dot { background: #e0341c; box-shadow: 0 0 0 3px rgba(224,52,28,0.25); }
+  .live-note.loading .dot { background: #f7c548; animation: blink 1s infinite; }
 
   .day-row.past { opacity: 0.55; transition: opacity .2s ease; }
   .day-row.past:hover { opacity: 1; }
@@ -2155,40 +2172,74 @@ function filterByGroup(g) {
 
 document.getElementById('teamSearch').addEventListener('input', applyFilters);
 
-// Final scores for played matches, keyed by official match number.
-// Add a line here after each match: matchNumber: [homeGoals, awayGoals]
-const RESULTS = {
-  1: [2, 0], // Mexico – South Africa
-  2: [2, 1], // South Korea – Czechia
-  3: [1, 1], // Canada – Bosnia and Herzegovina
-};
+// ── Results & live scores ───────────────────────────────────────────────
+// Scores update automatically from TheSportsDB when the page is opened.
+// SEED = last-known finished scores, shown instantly and used if the API is
+// unreachable. MANUAL_OVERRIDE wins over the API — use it to hand-correct a
+// score the feed gets wrong: e.g.  MANUAL_OVERRIDE = { 4: [2, 1] };
+const SEED = { 1: [2, 0], 2: [2, 1], 3: [1, 1] };
+const MANUAL_OVERRIDE = {};
 
-document.querySelectorAll('.match-card').forEach(c => {
-  const m = c.querySelector('.match-meta').textContent.match(/Match #(\d+)/);
-  const res = m && RESULTS[m[1]];
-  if (!res) return;
-  c.classList.add('played');
-  const el = document.createElement('div');
-  el.className = 'match-score';
-  el.innerHTML = '<span class="score-num">' + res[0] + ' – ' + res[1] + '</span><span class="score-tag">FT</span>';
-  c.insertBefore(el, c.querySelector('.match-time'));
+let RESULTS = Object.assign({}, SEED); // matchNumber -> [home, away] (full time)
+let LIVE = {};                         // matchNumber -> [home, away] (in progress)
+
+// Capture each group's roster once, so standings can be rebuilt repeatedly.
+const ROSTERS = {};
+document.querySelectorAll('.group-card').forEach(gc => {
+  ROSTERS[gc.dataset.group] = Array.from(gc.querySelectorAll('.team-chip'), ch => ({
+    name: ch.querySelector('.tname').textContent,
+    flag: ch.querySelector('.flag').textContent
+  }));
 });
 
+const matchNum = c => (c.querySelector('.match-meta').textContent.match(/Match #(\d+)/) || [])[1];
+
+// Normalise team names so the API's spellings match the page's.
+function canon(name) {
+  const s = name.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z]/g, '');
+  const alias = {
+    usa: 'usa', unitedstates: 'usa',
+    turkey: 'turkiye', turkiye: 'turkiye',
+    czechrepublic: 'czechia', czechia: 'czechia', czech: 'czechia',
+    bosniaherzegovina: 'bosnia', bosniaandherzegovina: 'bosnia',
+    southkorea: 'southkorea', korearepublic: 'southkorea', republicofkorea: 'southkorea',
+    ivorycoast: 'ivorycoast', cotedivoire: 'ivorycoast',
+    drcongo: 'drcongo', congodr: 'drcongo', democraticrepublicofthecongo: 'drcongo',
+    capeverde: 'capeverde', caboverde: 'capeverde'
+  };
+  return alias[s] || s;
+}
+const pairKey = (a, b) => [canon(a), canon(b)].sort().join('|');
+
+function renderResults() {
+  document.querySelectorAll('.match-card').forEach(c => {
+    c.classList.remove('played', 'live');
+    const old = c.querySelector('.match-score');
+    if (old) old.remove();
+    const n = matchNum(c);
+    const live = !RESULTS[n] && LIVE[n];
+    const score = RESULTS[n] || LIVE[n];
+    if (!score) return;
+    c.classList.add(live ? 'live' : 'played');
+    const el = document.createElement('div');
+    el.className = 'match-score' + (live ? ' live' : '');
+    el.innerHTML = '<span class="score-num">' + score[0] + ' – ' + score[1] + '</span>' +
+      '<span class="score-tag">' + (live ? '● LIVE' : 'FT') + '</span>';
+    c.insertBefore(el, c.querySelector('.match-time'));
+  });
+}
+
 // Build group standings tables from RESULTS (Pts > GD > GF, then alphabetical)
-(function buildStandings() {
+function buildStandings() {
   const stats = {};
-  document.querySelectorAll('.group-card').forEach(gc => {
-    stats[gc.dataset.group] = {};
-    gc.querySelectorAll('.team-chip').forEach(ch => {
-      stats[gc.dataset.group][ch.querySelector('.tname').textContent] =
-        { flag: ch.querySelector('.flag').textContent, p: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0 };
-    });
+  Object.keys(ROSTERS).forEach(g => {
+    stats[g] = {};
+    ROSTERS[g].forEach(t => { stats[g][t.name] = { flag: t.flag, p: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0 }; });
   });
   document.querySelectorAll('.match-card').forEach(c => {
     const group = stats[c.dataset.group];
     if (!group) return; // knockout match
-    const m = c.querySelector('.match-meta').textContent.match(/Match #(\d+)/);
-    const res = m && RESULTS[m[1]];
+    const res = RESULTS[matchNum(c)];
     if (!res) return;
     const names = Array.from(c.querySelectorAll('.tnm'), t => t.textContent);
     const A = group[names[0]], B = group[names[1]];
@@ -2219,7 +2270,65 @@ document.querySelectorAll('.match-card').forEach(c => {
       '<th>GF</th><th>GA</th><th>GD</th><th>PTS</th>' +
       '</tr></thead><tbody>' + body + '</tbody></table>';
   });
-})();
+}
+
+function render() { renderResults(); buildStandings(); }
+
+// Live status note injected under the filter bar
+const note = document.createElement('div');
+note.className = 'live-note loading';
+note.innerHTML = '<span class="dot"></span><span class="msg">Fetching live scores…</span>';
+document.querySelector('.filters').insertAdjacentElement('afterend', note);
+function setNote(cls, msg) {
+  note.className = 'live-note ' + cls;
+  note.querySelector('.msg').textContent = msg;
+}
+
+const FINISHED = new Set(['FT', 'AET', 'PEN', 'AP', 'MATCHFINISHED', 'FINISHED', 'AWARDED']);
+const INPLAY = new Set(['1H', '2H', 'HT', 'ET', 'BT', 'P', 'PEN1', 'LIVE', 'INPLAY']);
+
+async function fetchScores() {
+  const url = 'https://www.thesportsdb.com/api/v1/json/123/eventsseason.php?id=4429&s=2026';
+  const r = await fetch(url, { cache: 'no-store' });
+  if (!r.ok) throw new Error('HTTP ' + r.status);
+  const events = ((await r.json()) || {}).events || [];
+  const byPair = {};
+  events.forEach(e => {
+    const hs = parseInt(e.intHomeScore, 10), as = parseInt(e.intAwayScore, 10);
+    if (Number.isNaN(hs) || Number.isNaN(as)) return;
+    const st = (e.strStatus || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+    const fin = FINISHED.has(st), live = INPLAY.has(st);
+    if (!fin && !live) return;
+    const ha = canon(e.strHomeTeam), aa = canon(e.strAwayTeam);
+    byPair[[ha, aa].sort().join('|')] = { [ha]: hs, [aa]: as, fin: fin };
+  });
+
+  const results = {}, liveScores = {};
+  document.querySelectorAll('.match-card').forEach(c => {
+    const names = Array.from(c.querySelectorAll('.tnm'), t => t.textContent);
+    const hit = byPair[pairKey(names[0], names[1])];
+    if (!hit) return;
+    const pair = [hit[canon(names[0])], hit[canon(names[1])]];
+    (hit.fin ? results : liveScores)[matchNum(c)] = pair;
+  });
+
+  RESULTS = Object.assign({}, results, MANUAL_OVERRIDE);
+  LIVE = liveScores;
+  render();
+  const liveCount = Object.keys(LIVE).length;
+  const time = new Date().toLocaleTimeString('en-GB', { timeZone: 'Asia/Riyadh', hour: '2-digit', minute: '2-digit' });
+  setNote('', (liveCount ? '🔴 ' + liveCount + ' match' + (liveCount > 1 ? 'es' : '') + ' live · ' : '') +
+    '✅ Auto-updated ' + time + ' AST');
+}
+
+function refresh() {
+  fetchScores().catch(() => setNote('err', '⚠️ Live feed unavailable — showing last saved scores'));
+}
+
+render();      // instant paint from SEED (works offline)
+refresh();     // then pull live scores
+setInterval(refresh, 90000);                              // refresh while tab is open
+document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh(); });
 
 // Mark past and current matchdays (dates in the page are AST calendar days)
 const TODAY = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Riyadh' });
